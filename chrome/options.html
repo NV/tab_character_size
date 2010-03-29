@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Tab Character Size</title>
+<style type="text/css">
+html, body {
+	background: #F4F6FC;
+	margin: 0;
+	padding: 0;
+}
+p, pre {
+	max-width: 600px;
+	margin: 0 auto;
+}
+h1 {
+	font: 32px sans-serif;
+}
+input {
+	font: 32px monospace;
+}
+#tab_replacement_preview {
+	background: none;
+	border-color: transparent;
+}
+h1 {
+	font: 32px sans-serif;
+	margin: 2em auto;
+	text-align: center;
+}
+h1 span {
+	display: inline-block;
+	text-align: right;
+}
+pre, textarea {
+	font: 14px monospace;
+}
+textarea {
+	width: 100%;
+}
+pre {
+	background: #EBEFF9;
+	-webkit-box-sizing: border-box;
+	padding: 2px 4px;
+	-webkit-box-shadow: 0 0 4px #B5C7DE; 
+}
+h2 {
+	margin-top: 3em;
+	font: 16px Georgia, serif;
+	text-transform: uppercase;
+	letter-spacing: .3em;
+	text-align: center;
+	color: #687d99;
+	border-top: 1px solid #B5C7DE;
+}
+h2 span {
+	position: relative;
+	top: -10px;
+	background: #F4F6FC;
+	padding: 0 .6em 0 .8em;
+}
+</style>
+</head>
+<body>
+<h1>
+	<span>
+		Replace tabs with
+		<input id="tab_replacement" size="6" name="tab_replacement" value="  "/><br/>
+		<input id="tab_replacement_preview" disabled size="6" value="··"/>
+	</span>
+</h1>
+<h2><span>Playground</span></h2>
+<p>
+<textarea rows="6" cols="54" id="sample">jQuery.fn.extend({
+	show: function( speed, callback ) {
+		...
+	}
+	...</textarea>
+</p>
+<pre id="preview"></pre>
+<script>
+function checkTab(e) {
+	var t = e.target;
+	var ss = t.selectionStart;
+	if (e.keyCode == 9) {
+		e.preventDefault();
+		t.value = t.value.slice(0, ss).concat("\t").concat(t.value.slice(ss, t.value.length));
+		t.selectionStart = t.selectionEnd = ss + 1;
+	}
+}
+function updatePreview() {
+	preview.textContent = sample.value.replace(/\t/g, localStorage.replacement);
+}
+function changeTabSize() {
+	localStorage.replacement = tab_replacement.value;
+	tab_replacement_preview.value = tab_replacement.value.replace(/\s/g, '·');
+	updatePreview();
+}
+
+window.onload = function () {
+	if (localStorage.replacement) {
+		tab_replacement.value = localStorage.replacement;
+	}
+	changeTabSize();
+};
+sample.onkeydown = function(e){
+	checkTab(e);
+	updatePreview();
+};
+sample.oninput = updatePreview;
+tab_replacement.oninput = changeTabSize;
+</script>
+</body></html>

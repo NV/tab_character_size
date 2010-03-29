@@ -1,0 +1,19 @@
+{
+	"name": "Tab character size",
+	"version": "1.0",
+	"description": "Replace all tab characters with two spaces (or something else)",
+	"icons": {
+		"48": "icon_48.png",
+		"64": "icon_64.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"js": ["tab-character-size.js"],
+			"run_at": "document_end"
+		}
+	],
+	"options_page": "options.html",
+	"background_page": "background.html",
+	"update_url": "http://clients2.google.com/service/update2/crx"
+}
