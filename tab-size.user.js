@@ -4,6 +4,7 @@
 // @include       *
 // @description   Replace all tab characters with two spaces (or something else)
 // @version       1.0
+// @icon          http://userscripts.ru/js/tab-character-size/chrome/icon_48.png
 // ==/UserScript==
 
 var REPLACEMENT = '  ';
