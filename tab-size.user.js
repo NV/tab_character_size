@@ -12,14 +12,23 @@ if (typeof GM_getValue === 'function') {
 	REPLACEMENT = GM_getValue('tab_replacement') || REPLACEMENT;
 }
 
-var pre_elements = document.body.getElementsByTagName('pre');
+function replaceTabsInElement(element) {
+	var pre_elements = element.getElementsByTagName('pre');
 
-for (var i=0; i<pre_elements.length; i++) {
-	var no_tabs = pre_elements[i].innerHTML.replace(/\t/g, REPLACEMENT);
-	if (pre_elements[i].innerHTML != no_tabs) {
-		pre_elements[i].innerHTML = no_tabs;
+	for (var i=0; i<pre_elements.length; i++) {
+		var no_tabs = pre_elements[i].innerHTML.replace(/\t/g, REPLACEMENT);
+		if (pre_elements[i].innerHTML != no_tabs) {
+			pre_elements[i].innerHTML = no_tabs;
+		}
 	}
 }
+
+replaceTabsInElement(document.body);
+
+// Will not work in IE < 9
+document.body.addEventListener("DOMNodeInserted", function(e) {
+	replaceTabsInElement(e.target);
+}, false);
 
 if (typeof GM_registerMenuCommand === 'function') {
 	GM_registerMenuCommand('Change tab size...', function setTabReplacement(value){
