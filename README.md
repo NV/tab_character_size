@@ -18,4 +18,8 @@ In Firefox you can change default 2 spaces to something else.
 
 In other browsers you have to edit `REPLACEMENT` variable manually.
 
+## [User Style for Firefox 4+ and Opera](http://usercss.com/styles/tab-size/)
+
+In Opera and Firefox 4+ you can customize tab character width using nothing but CSS (`-o-tab-size` and `-moz-tab-size` respectively).
+
 License: Public domain
